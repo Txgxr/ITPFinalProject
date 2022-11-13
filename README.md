@@ -1,57 +1,43 @@
 # Intro to Programming Final Project
-# 
+# MySplit
 
 
 
 ## Description
 
-
+MySplit helps you keep track of workout splits, athletic progress, and future goals.
 
 ## Getting Started
 
+Create a workout split, choose a schedule for activities. Set your athletic goals with help from the SmartGoals tool.
+
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Python 3.x, Pygame, etc.
+TBD
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+TBD
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
+TBD
 
 ## Help
 
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
+Help is available in the help section of the interface.
 
 ## Authors
 
-Contributors names and contact info
-
-ex. Chris Cozort  
-ex. ccozort@bcp.org
+Created by Mark Becker
 
 ## Version History
 
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
+No version history yet...
 
 ## License
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+This project is licensed under the MIT License - see the LICENSE.md file for details
 
 ## Acknowledgments
 
