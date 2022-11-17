@@ -4,20 +4,22 @@ from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.textinput import TextInput
+from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.button import Button
+from kivy.uix.image import Image
 
-class StartScreen(GridLayout):
+class StartScreen(FloatLayout):
 
     def __init__(self, **kwargs):
         super(StartScreen, self).__init__(**kwargs)
+        self.splitsButton = Button(text="Splits", size_hint=(.2,.1), pos_hint={'center_x':.5, 'center_y':.5}, background_color=(0.2,0.2,1,0.8))
+        self.add_widget(self.splitsButton)
 
-        self.cols = 2
-        self.add_widget(Label(text='Username:'))
-        self.username = TextInput(multiline=False)
-        self.add_widget(self.username)
-        self.add_widget(Label(text='Password:'))
-        self.password = TextInput(password=True, multiline=False)
-        self.add_widget(self.password)
+        self.optionsButton = Button(text='Options', size_hint=(.2,.1), pos_hint={'center_x':.5, 'center_y':.38})
+        self.add_widget(self.optionsButton)
 
+        self.logo = Image(source='C:\github\intro to programming\ITPFinalProject\Resources\Images\mySplit_Logo.png',pos_hint={'center_x':.5,'center_y':.8})
+        self.add_widget(self.logo)
 class MyApp(App):
 
     def build(self):
