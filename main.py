@@ -8,7 +8,8 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.button import Button
 from kivy.uix.image import Image
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
-from kivy.lang import Builder
+from kivy.uix.textinput import TextInput
+from kivy.uix.popup import Popup
 
 class StartScreen(Screen, FloatLayout):
 
@@ -21,12 +22,21 @@ class StartScreen(Screen, FloatLayout):
 
         self.optionsButton = Button(text='Options', size_hint=(.2,.1), pos_hint={'center_x':.5, 'center_y':.38}, background_color=(0.2,0.2,1,0.8))
         self.add_widget(self.optionsButton)
+        self.optionsButton.bind(on_press=self.toOptionsScreen)
+
+        self.exitButton = Button(text="Exit", size_hint=(.2,.1), pos_hint={'center_x':.5, 'center_y':.26}, background_color=(0.2,0.2,1,0.8))
+        self.add_widget(self.exitButton)
+        self.exitButton.bind(on_press=MySplit().stop)
 
         self.logo = Image(source='C:\github\intro to programming\ITPFinalProject\Resources\Images\mySplit_Logo.png',pos_hint={'center_x':.5,'center_y':.8})
         self.add_widget(self.logo)
 
     def toSplitsScreen(self, instance):
-        sm.current='splits'
+        sm.current = "splits"
+        return sm
+
+    def toOptionsScreen(self, instance):
+        sm.current = "options"
         return sm
 
 class SplitsScreen(Screen, FloatLayout):
@@ -35,6 +45,7 @@ class SplitsScreen(Screen, FloatLayout):
         super(SplitsScreen, self).__init__(**kwargs)
         self.newSplitButton = Button(text='New Split', size_hint=(.2,.1), pos_hint={'x':.75, 'y':.75}, background_color=(0.2,0.2,1,0.8))
         self.add_widget(self.newSplitButton)
+        self.newSplitButton.bind(on_press=self.splitNamePopup)
 
         self.backToMenuButton = Button(text='Back', size_hint=(.2,.1), pos_hint={'x':.05, 'y':.75}, background_color=(0.2,0.2,1,0.8))
         self.add_widget(self.backToMenuButton)
@@ -42,6 +53,29 @@ class SplitsScreen(Screen, FloatLayout):
 
         self.logo = Image(source='C:\github\intro to programming\ITPFinalProject\Resources\Images\mySplit_Logo.png',pos_hint={'center_x':.5,'center_y':.8})
         self.add_widget(self.logo)
+
+    def toStartScreen(self, instance):
+        sm.current='start'
+        return sm
+    
+    def splitNamePopup(self, instance):
+        splitNameBox = FloatLayout()
+        splitNameBox.add_widget(TextInput(text='', size_hint=(None,None), size=(100,70)))
+        splitNameBox.add_widget(Button(text='Close', size_hint=(None, None), size=(90,60)))
+
+        splitNamePopup = Popup(title='Creating New Split',content=splitNameBox)
+        splitNamePopup.open()
+
+class OptionsScreen(Screen, FloatLayout):
+
+    def __init__(self, **kwargs):
+        super(OptionsScreen, self).__init__(**kwargs)
+        self.optionsLogo = Image(source='C:\github\intro to programming\ITPFinalProject\Resources\Images\options_logo.png',pos_hint={'center_x':.5,'center_y':.8})
+        self.add_widget(self.optionsLogo)
+
+        self.backToMenuButton = Button(text='Back', size_hint=(.2,.1), pos_hint={'x':.05, 'y':.75}, background_color=(0.2,0.2,1,0.8))
+        self.add_widget(self.backToMenuButton)
+        self.backToMenuButton.bind(on_press=self.toStartScreen)
 
     def toStartScreen(self, instance):
         sm.current='start'
@@ -57,6 +91,8 @@ class MySplit(App):
         sm = ScreenManager()
         sm.add_widget(StartScreen(name='start'))
         sm.add_widget(SplitsScreen(name='splits'))
+        sm.add_widget(OptionsScreen(name='options'))
+
 
         sm.current='start'
 
@@ -64,3 +100,4 @@ class MySplit(App):
 
 if __name__ == '__main__':
     MySplit().run()
+    
