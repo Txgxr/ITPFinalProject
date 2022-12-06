@@ -10,6 +10,16 @@ from kivy.uix.image import Image
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
 from kivy.uix.textinput import TextInput
 from kivy.uix.popup import Popup
+import os
+
+if not os.path.exists('C:\github\intro to programming\ITPFinalProject\Resources\Splits'):
+    os.umask(0)
+    os.mkdir('C:\github\intro to programming\ITPFinalProject\Resources\Splits', 0o777)
+    os.chmod('C:\github\intro to programming\ITPFinalProject\Resources\Splits', 0o777)
+
+class Split():
+    def __init__(self, splitName):
+        self.splitName = splitName
 
 class StartScreen(Screen, FloatLayout):
 
@@ -39,6 +49,15 @@ class StartScreen(Screen, FloatLayout):
         sm.current = "options"
         return sm
 
+class Split():
+    def __init__(self, name, exCount, position, **kwargs):
+        self.name = name
+        self.exCount = exCount
+        self.position = position
+
+
+
+
 class SplitsScreen(Screen, FloatLayout):
     
     def __init__(self, **kwargs):
@@ -54,17 +73,53 @@ class SplitsScreen(Screen, FloatLayout):
         self.logo = Image(source='C:\github\intro to programming\ITPFinalProject\Resources\Images\mySplit_Logo.png',pos_hint={'center_x':.5,'center_y':.8})
         self.add_widget(self.logo)
 
+        self.splitCount = 1
+        self.splitEntries = os.listdir('C:\github\intro to programming\ITPFinalProject\Resources\Splits')
+
+        for split in self.splitEntries:
+            self.splitCount += 1
+            self.add_widget(Button(text=f'{os.path.splitext(split)[0]}', pos_hint={'center_x':.5,'center_y':.1*self.splitCount*1.5}, size_hint=(None, None), size=(450, 80), font_size=25, background_color=(0.1,0.1,1,0.5)))
+            print(os.path.splitext(split)[0])
+            print(self.splitCount)
+        # self.splits = os.listdir('C:\github\intro to programming\ITPFinalProject\Resources\Splits')
+        # self.splitCount = 1
+        # for split in self.splits:
+        #     self.add_widget(self.add_widget(Button(text=f'{split}', pos_hint={'center_x':.5,'center_y':.1}, size_hint=(None, None), size=(450, 80), font_size=25, background_color=(0.1,0.1,1,0.5))))
+        #     self.splitCount += 1
+
     def toStartScreen(self, instance):
         sm.current='start'
         return sm
     
     def splitNamePopup(self, instance):
         splitNameBox = FloatLayout()
-        splitNameBox.add_widget(TextInput(text='', size_hint=(None,None), size=(100,70)))
-        splitNameBox.add_widget(Button(text='Close', size_hint=(None, None), size=(90,60)))
 
-        splitNamePopup = Popup(title='Creating New Split',content=splitNameBox)
+        splitPopupTextInput = TextInput(text='', size_hint=(None,None), size=(200,50), pos_hint={'center_x':.5, 'center_y':.6}, multiline=False, font_size=25, halign='center', )
+        closeSplitPopupButton = Button(text='Close', size_hint=(None, None), size=(90,60), pos_hint={'center_x':.25, 'center_y':.2})
+        splitPopupEnterButton = Button(text='Enter', size_hint=(None, None), size=(90, 60), pos_hint={'center_x':.75, 'center_y':.2})
+        splitPopupNameLabel = Label(text="Enter Split Name", size_hint=(None, None), size=(150, 50), pos_hint={'center_x':.5, 'center_y':.8})
+
+        splitNameBox.add_widget(splitPopupEnterButton)
+        splitNameBox.add_widget(splitPopupTextInput)
+        splitNameBox.add_widget(splitPopupNameLabel)
+        splitNameBox.add_widget(closeSplitPopupButton)
+
+        splitNamePopup = Popup(title='Creating New Split',content=splitNameBox, size_hint=(None, None), size=(300,250), auto_dismiss=False, background_color=(0.2,0.2,1,1))
+        closeSplitPopupButton.bind(on_press=splitNamePopup.dismiss)
+        splitPopupEnterButton.bind(on_press=lambda x:self.createSplit(splitPopupTextInput.text))
+        splitPopupEnterButton.bind(on_press=splitNamePopup.dismiss)
+
         splitNamePopup.open()
+
+    def createSplit(self, splitName):
+        if not os.path.exists(f'C:\github\intro to programming\ITPFinalProject\Resources\Splits\{splitName}.txt') and self.splitCount < 5:
+            splitNameFile = open(f'C:\github\intro to programming\ITPFinalProject\Resources\Splits\{splitName}.txt', 'w')
+            self.add_widget(Button(text=f'{splitName}', pos_hint={'center_x':.5,'center_y':.1*self.splitCount*1.5}, size_hint=(None, None), size=(450, 80), font_size=25, background_color=(0.1,0.1,1,0.5)))
+            splitNameFile.close()
+            self.splitCount += 1
+            lambda x:self.checkSplitFiles()
+        
+
 
 class OptionsScreen(Screen, FloatLayout):
 
@@ -81,7 +136,7 @@ class OptionsScreen(Screen, FloatLayout):
         sm.current='start'
         return sm
 
-       
+      
 
 
 class MySplit(App):
