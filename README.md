@@ -9,23 +9,23 @@ MySplit helps you keep track of workout splits, athletic progress, and future go
 
 ## Getting Started
 
-Create a workout split, choose a schedule for activities. Set your athletic goals with help from the SmartGoals tool.
+Create a workout split, choose a schedule for activities. Set your athletic goals with help from the MySplit tool.
 
 ### Dependencies
 
-TBD
+Python 3.10
 
 ### Installing
 
-TBD
+Must install latest version of Kivy (2.1.0)
 
 ### Executing program
 
-TBD
+Run the python file after installing all the assets and the Kivy library
 
 ## Help
 
-Help is available in the help section of the interface.
+Help is available in the options section of the interface.
 
 ## Authors
 
@@ -41,7 +41,6 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 
 ## Acknowledgments
 
-Inspiration, code snippets, etc.
-* [w3Schools](https://www.w3schools.com/python/default.asp)
-* [PyGame](https://www.pygame.org/docs/)
+* [GeeksForGeeks](https://geeksforgeeks.org)
+* [Kivy](http://kivy.org/doc/stable)
 * [Automate The Boring Stuff](https://automatetheboringstuff.com/)

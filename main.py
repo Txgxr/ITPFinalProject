@@ -1,3 +1,11 @@
+# Sources: 
+# https://geeksforgeeks.org
+# https://stackoverflow.com
+# https://kivy.org/doc/stable
+# https://realpython.com
+
+
+
 import kivy
 kivy.require('2.1.0')
 from kivy.app import App
